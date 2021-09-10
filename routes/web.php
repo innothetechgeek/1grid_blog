@@ -21,7 +21,16 @@ Route::get('/post/add', function () {
     return view('backend.posts.add');
 });
 
+Route::get('/post/edit', function () {
+    return view('backend.edit');
+});
+
 Route::get('/post/list', function () {
     return view('backend.posts.list');
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
+
 
