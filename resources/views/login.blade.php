@@ -91,7 +91,8 @@
                         <div class="container-xl">
                             <div class="row gy-4 d-flex justify-content-center">
                                 <div class="col-lg-6">
-                                    <form>
+                                    <form action = "{{ route('login') }}" method="POST">
+                                       @csrf
                                         <div class="col-12 d-flex justify-content-end"><!----><br>
                                             </div> 
                                                 <div class="form-group row">

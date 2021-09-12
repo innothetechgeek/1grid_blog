@@ -252,19 +252,24 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <h3 class="mb-0">Add Post</h3>
+                                    <h3 class="mb-0">Edit Post</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form>
-                                <h6 class="heading-small text-muted mb-4">User information</h6>
+                            <form action='{{ url("post/edit/{$post->id}") }}' method="POST"  enctype="multipart/form-data" >
+                                @csrf
+                                <h6 class="heading-small text-muted mb-4">Post information</h6>
+                                <input type="hidden" name="post_id" value="{{$post->id}}">
                                 <div class="pl-lg-4">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <div class="form-group">
+                                            <div class="form-group has-validation">
                                                 <label class="form-control-label" for="input-username">Post Title</label>
-                                                <input type="text" id="input-username" class="form-control" placeholder="Post Title">
+                                                <input type="text" id="title" name="title" value="{{ $post->title }}" class="form-control" placeholder="Post Title">
+                                                @if($errors->has('title'))
+                                                    <div class="invalid-feedback">{{ $errors->first('title') }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -272,18 +277,21 @@
                                 <div class="pl-lg-4 ">
                                     <div class="form-group ">
                                         <label class="form-control-label ">Post Content</label>
-                                        <textarea rows="4 " class="form-control " placeholder="Enter post title">Enter post title.</textarea>
+                                        <textarea rows="4 " class="form-control "  name = "content">{{ $post->content }}</textarea>
+                                        @if($errors->has('content'))
+                                            <div class="invalid-feedback">{{ $errors->first('content') }}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="pl-lg-4 ">
                                     <label class="form-control-label ">Upload Post image</label>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                        <input type="file" name = "image" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     </div>
                                 </div>
                                 <div class="d-flex mt-3 justify-content-end">
                                     <a href="{{ url('post/list') }}" class="btn btn-secondary">Back</a>
-                                    <a href="http://127.0.0.1:8000/post/add" class="btn btn-success">Add Post</a>
+                                    <button type = "submit" class="btn btn-success">Add Post</button>
                                 </div>                                
                             </form>
                         </div>

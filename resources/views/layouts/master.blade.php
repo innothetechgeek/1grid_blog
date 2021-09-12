@@ -30,6 +30,9 @@
         <link rel="stylesheet" href="{{ asset('assets/backend/css/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
         <!-- Argon CSS -->
         <link rel="stylesheet" href="{{ asset('assets/backend/css/argon.css?v=1.2.0') }}" type="text/css">
+
+        <link rel="stylesheet" href="{{ asset('assets/backend/css/jquery.toast.min.css') }}" type="text/css">
+        
     </head>
     <body>
         @section('sidebar')
@@ -66,9 +69,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="login.html">
+                                    <a class="nav-link" href="{{ url('logout') }}">
                                         <i class="ni ni-key-25 text-info"></i>
-                                        <span class="nav-link-text">Login</span>
+                                        <span class="nav-link-text">Logout</span>
                                     </a>
                                 </li>
                             </ul>

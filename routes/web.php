@@ -13,24 +13,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
+Route::get('/', [\App\Http\Controllers\PostController::class, 'index']);
+
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::get('/post/create',[\App\Http\Controllers\PostController::class,'create']);
+
+    Route::post('/post/store',[\App\Http\Controllers\PostController::class,'store'])->name('post.store');
+
+    Route::get('/post/edit/{post}',[\App\Http\Controllers\PostController::class,'edit']);
+    Route::post('/post/edit/{post}',[\App\Http\Controllers\PostController::class,'update'])->name('post.update');
+
+    Route::get('/post/list',[\App\Http\Controllers\PostController::class,'list'])->name('posts.list');
+    Route::get('post/delete/{id}',[\App\Http\Controllers\PostController::class,'delete']);
 });
 
-Route::get('/post/add', function () {
-    return view('backend.posts.add');
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index']);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+
+Route::get('logout',function(){
+
+    Auth::logout();
+
+    return redirect('/login');
+
 });
 
-Route::get('/post/edit', function () {
-    return view('backend.edit');
-});
 
-Route::get('/post/list', function () {
-    return view('backend.posts.list');
-});
 
-Route::get('/login', function () {
-    return view('login');
-});
+
 
 

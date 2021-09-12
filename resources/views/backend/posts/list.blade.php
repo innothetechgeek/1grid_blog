@@ -57,7 +57,7 @@
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                        <h4 class="mb-0 text-sm">{{ Auth::user()->name }} </h4>
                                                     </div>
                                                     <div class="text-right text-muted">
                                                         <small>2 hrs ago</small>
@@ -76,7 +76,7 @@
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                        <h4 class="mb-0 text-sm">{{ Auth::user()->name }}</h4>
                                                     </div>
                                                     <div class="text-right text-muted">
                                                         <small>3 hrs ago</small>
@@ -95,7 +95,7 @@
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                        <h4 class="mb-0 text-sm">{{ Auth::user()->name }}</h4>
                                                     </div>
                                                     <div class="text-right text-muted">
                                                         <small>5 hrs ago</small>
@@ -114,7 +114,7 @@
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                        <h4 class="mb-0 text-sm">{{ Auth::user()->name }}</h4>
                                                     </div>
                                                     <div class="text-right text-muted">
                                                         <small>2 hrs ago</small>
@@ -133,7 +133,7 @@
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                        <h4 class="mb-0 text-sm">{{ Auth::user()->name }}</h4>
                                                     </div>
                                                     <div class="text-right text-muted">
                                                         <small>3 hrs ago</small>
@@ -202,7 +202,7 @@
                     <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
                   </span>
                                     <div class="media-body  ml-2  d-none d-lg-block">
-                                        <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                                        <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
                                     </div>
                                 </div>
                             </a>
@@ -254,7 +254,7 @@
                             </nav>
                         </div>
                         <div class="col-lg-6 col-5 text-right">
-                            <a href="{{ url('post/add') }}" class="btn btn-sm btn-neutral">Add New</a>
+                            <a href="{{ url('post/create') }}" class="btn btn-sm btn-neutral">Add New</a>
                         </div>
                     </div>
                 </div>
@@ -282,171 +282,40 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="media align-items-center">
-                                                <a href="#" class="avatar rounded-circle mr-3">
-                                                    <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                                                </a>
-                                                <div class="media-body">
-                                                    <span class="name mb-0 text-sm">Argon Design System</span>
+                                    @foreach($posts as $key=>$post)
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="media align-items-center">
+                                                    <a href="#" class="avatar rounded-circle mr-3">
+                                                        <img alt="Image placeholder" src="<?php echo asset("images/post_images/$post->id/$post->image")?>">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <span class="name mb-0 text-sm">{{$post->title}}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </th>
-                                        <td class="budget">
-                                            $2500 USD
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i>
-                        <span class="status">pending</span>
-                                            </span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                            </th>
+                                            <td class="budget">
+                                                {{$post->content}}
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-dot mr-4">
+                                                <i class="bg-success"></i>
+                                                <span class="status">--</span>
+                                                </span>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item" href='{{ url("post/edit/{$post->id}") }}'>Edit</a>
+                                                        <a class="dropdown-item" href='{{ url("post/delete/{$post->id}") }}'>Delete</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="media align-items-center">
-                                                <a href="#" class="avatar rounded-circle mr-3">
-                                                    <img alt="Image placeholder" src="../assets/img/theme/angular.jpg">
-                                                </a>
-                                                <div class="media-body">
-                                                    <span class="name mb-0 text-sm">Angular Now UI Kit PRO</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <td class="budget">
-                                            $1800 USD
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                        <i class="bg-success"></i>
-                        <span class="status">completed</span>
-                                            </span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="media align-items-center">
-                                                <a href="#" class="avatar rounded-circle mr-3">
-                                                    <img alt="Image placeholder" src="../assets/img/theme/sketch.jpg">
-                                                </a>
-                                                <div class="media-body">
-                                                    <span class="name mb-0 text-sm">Black Dashboard</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <td class="budget">
-                                            $3150 USD
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                        <i class="bg-danger"></i>
-                        <span class="status">delayed</span>
-                                            </span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="media align-items-center">
-                                                <a href="#" class="avatar rounded-circle mr-3">
-                                                    <img alt="Image placeholder" src="../assets/img/theme/react.jpg">
-                                                </a>
-                                                <div class="media-body">
-                                                    <span class="name mb-0 text-sm">React Material Dashboard</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <td class="budget">
-                                            $4400 USD
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                        <i class="bg-info"></i>
-                        <span class="status">on schedule</span>
-                                            </span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="media align-items-center">
-                                                <a href="#" class="avatar rounded-circle mr-3">
-                                                    <img alt="Image placeholder" src="../assets/img/theme/vue.jpg">
-                                                </a>
-                                                <div class="media-body">
-                                                    <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <td class="budget">
-                                            $2200 USD
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                        <i class="bg-success"></i>
-                        <span class="status">completed</span>
-                                            </span>
-</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -516,4 +385,26 @@
     <script src="{{ asset('assets/backend/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
     <!-- Argon JS -->
     <script src="../assets/js/argon.js?v=1.2.0"></script>
+
+    <script src="{{ asset('assets/backend/js/jquery.toast.min.js') }}"></script>
+
+    <?php
+
+        if(session()->has('message')){ ?>
+         
+         <script>
+            $.toast({
+                heading: "Message",
+                text: '<?= session()->get('message') ?>',
+                icon: 'info',
+                loader: true,        // Change it to false to disable loader
+                loaderBg: '#11cdef',  // To change the background
+                bgColor:'#5E72E4'
+            })
+        </script>
+       
+       
+       <?php }
+
+    ?>
     @endsection
