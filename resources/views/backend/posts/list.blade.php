@@ -52,7 +52,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-auto">
                                                 <!-- Avatar -->
-                                                <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg" class="avatar rounded-circle">
+                                                <img alt="Image placeholder" src="{{ asset('assets/backend/img/theme/team-1.jpg') }}" class="avatar rounded-circle">
                                             </div>
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -109,7 +109,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-auto">
                                                 <!-- Avatar -->
-                                                <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg" class="avatar rounded-circle">
+                                                <img alt="Image placeholder" src="{{ asset('assets/backend/img/theme/team-4.jpg') }} class="avatar rounded-circle">
                                             </div>
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -199,7 +199,7 @@
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
+                    <img alt="Image placeholder" src="{{ asset('assets/backend/img/theme/team-1.jpg') }}">
                   </span>
                                     <div class="media-body  ml-2  d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
@@ -244,12 +244,11 @@
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 text-white d-inline-block mb-0">Tables</h6>
+                            <h6 class="h2 text-white d-inline-block mb-0">Posts</h6>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Tables</li>
+                                    <li class="breadcrumb-item"><a href="#">Posts</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -276,7 +275,7 @@
                                     <tr>
                                         <th scope="col" class="sort" data-sort="name">Post Title</th>
                                         <th scope="col" class="sort" data-sort="budget">Post content</th>
-                                        <th scope="col" class="sort" data-sort="status">Comments</th>
+                                        <th scope="col" class="sort" data-sort="status">Post rating</th>
                                         <th scope="col" class="sort" data-sort="completion">Action</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -310,7 +309,7 @@
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item" href='{{ url("post/edit/{$post->id}") }}'>Edit</a>
-                                                        <a class="dropdown-item" href='{{ url("post/delete/{$post->id}") }}'>Delete</a>
+                                                        <a class="dropdown-item delete-post" data-post-id="{{$post->id}}"  href='#'>Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -387,6 +386,35 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
 
     <script src="{{ asset('assets/backend/js/jquery.toast.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/jquery-confirm.min.js') }}"></script>
+
+    <script>
+
+        $('.delete-post').click(function(){
+            var post_id = $(this).attr('data-post-id');
+           
+            $.confirm({
+                title: 'Confirm!',
+                content: 'Are you sure you want to delete this  ?',
+                buttons: {
+                    cancel: function () {
+                    
+                    },
+                    yes: {
+                        text: 'Yes',
+                        btnClass: 'btn-blue',
+                        keys: ['enter', 'shift'],
+                        action: function(){
+                            window.location.href="{{ url('post/delete') }}/"+post_id;
+                        }
+                    }
+                }
+            });
+        }) 
+    
+
+
+    </script>
 
     <?php
 

@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('/post/edit/{post}',[\App\Http\Controllers\PostController::class,'update'])->name('post.update');
 
     Route::get('/post/list',[\App\Http\Controllers\PostController::class,'list'])->name('posts.list');
-    Route::get('post/delete/{id}',[\App\Http\Controllers\PostController::class,'delete']);
+    Route::get('post/delete/{id}',[\App\Http\Controllers\PostController::class,'delete'])->name('post.delete');
 });
 
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index']);
