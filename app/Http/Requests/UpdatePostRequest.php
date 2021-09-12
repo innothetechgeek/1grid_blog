@@ -5,6 +5,7 @@ use App\Models\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class UpdatePostRequest extends FormRequest
 {
@@ -18,7 +19,7 @@ class UpdatePostRequest extends FormRequest
 
       
         $userPost = Post::where('id', $request->post_id)
-                        ->where('user_id', 1)
+                        ->where('user_id',  Auth::user()->id)
                         ->get();
 
                     

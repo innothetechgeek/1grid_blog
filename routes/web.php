@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\PostController::class, 'index']);
+Route::get('post/detail/{id}', [\App\Http\Controllers\PostController::class, 'getPost']);
 
 Route::group(['middleware' => 'auth'], function()
 {

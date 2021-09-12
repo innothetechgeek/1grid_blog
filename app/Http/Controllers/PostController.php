@@ -50,16 +50,28 @@ class PostController extends Controller
 
     }
 
+    public function getPost($id){
+
+        $post  = Post::where('id',$id)
+                ->get();
+
+        return view('frontend/detail',['post'=>$post]);
+
+    }
+
     public function update(UpdatePostRequest $request,Post $post){
         
+        $imageName = $request->image->getClientOriginalName();      
+
         $post->update(
             [
                 'title' => $request->title,
                 'content' => $request->content,
-                'image' => 'test.jpg',
+                'image' => $imageName,
             ]
         );
 
+        $request->image->move(public_path("images/post_images/$post->id"),$imageName);
         return redirect()->route('posts.list')->with('message','Post Updated Successfully!');
     }
 
