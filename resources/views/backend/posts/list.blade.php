@@ -294,7 +294,7 @@
                                                 </div>
                                             </th>
                                             <td class="budget">
-                                                {{$post->content}}
+                                                {{ substr($post->content,0,60) }}..
                                             </td>
                                             <td>
                                                 <span class="fas fa-star">
