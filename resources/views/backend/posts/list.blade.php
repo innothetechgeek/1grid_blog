@@ -297,7 +297,7 @@
                                                 {{$post->content}}
                                             </td>
                                             <td>
-                                                <span class="badge badge-dot mr-4">
+                                                <span class="fas fa-star">
                                                 <i class="bg-success"></i>
                                                 <span class="status"> {{ $post->rating($post->id) }} </span>
                                                 </span>
