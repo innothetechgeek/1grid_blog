@@ -299,7 +299,7 @@
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                 <i class="bg-success"></i>
-                                                <span class="status">--</span>
+                                                <span class="status"> {{ $post->rating($post->id) }} </span>
                                                 </span>
                                             </td>
                                             <td class="text-right">

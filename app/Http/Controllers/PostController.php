@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Rating;
 use \App\Http\Requests\StorePostRequest;
 use \App\Http\Requests\UpdatePostRequest;
 use \App\Http\Requests\DeleteRequest;
@@ -92,5 +93,18 @@ class PostController extends Controller
 
         return view('backend.posts.list',['posts'=>$posts]);
         
+    }
+
+    public function rate(Request $request){
+
+        $post_id = $request->post_id;
+        $rating_score = $request->rating;
+
+        $rating = new Rating();
+        $rating->post_id = $post_id;
+        $rating->rating = $rating_score;
+        $rating->save();
+
+        return redirect()->back()->with('message', 'Rating posted successfully');
     }
 }

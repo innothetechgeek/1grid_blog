@@ -75,24 +75,28 @@
                     <!-- top section -->
                     <div class="post-top">
                         <ul class="meta list-inline mb-0">
-                            <li class="list-inline-item"><a href="#"><img src="images/other/author-sm.png" class="author" alt="author"/>Katen Doe</a></li>
+                            <li class="list-inline-item"><a href="#"><img height="20" width="20" src="https://i.pravatar.cc/150?img={{$post->id}}" class="author" alt="author"/>Katen Doe</a></li>
                             <li class="list-inline-item">29 March 2021</li>
                             <li class="list-inline-item"><i class="icon-bubble"></i> (0)</li>
+                            <li class="list-inline-item rate-post" data-post-id = "{{$post->id}}"  data-bs-toggle="modal" data-bs-target="#ratingModal"><a href="#"><i class="fas fa-star"></i> Rate this post</a></li>
                         </ul>
-                        <h5 class="post-title mb-0 mt-4"><a href="blog-single.html">Most Important Thing You Need To Know About Light Lamp</a></h5>
+                        <h5 class="post-title mb-0 mt-4"><a href="blog-single.html">{{$post->title}}</a></h5>
                     </div>
                     <!-- thumbnail -->
                     <div class="thumb rounded">
                         <a href="category.html" class="category-badge lg position-absolute">Inspiration</a>
                         <a href="blog-single.html">
                             <div class="inner">
-                                <img src="images/posts/post-xl-2.jpg" alt="post-title" />
+                                <?php $post_id = $post->id;
+                                    $image = $post->image;
+                                ?>
+                                <img src='<?php echo asset("images/post_images/$post_id/$image")?>' alt="post-title" />
                             </div>
                         </a>
                     </div>
                     <!-- details -->
                     <div class="details">
-                        <p class="excerpt mb-0">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                        <p class="excerpt mb-0">{{ substr($post->content,0,60) }}..</p>
                     </div>
                     <div class="post-bottom clearfix d-flex align-items-center">
                         <div class="social-share me-auto">
@@ -231,8 +235,64 @@
 	</ul>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="ratingForm" action = '{{ url("post/rate") }}' method= "POST">
+            @csrf
+            <div class="modal-body">
+                        
+                    <div id="ratingOptions">              
+                    </div>
 
+                    <input type = "hidden" name='rating' />
+                    <input type = "hidden" name='post_id' />
+                    
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endsection
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script>
 
-</body>
-</html>
+  
+    $('.rate-post').click(function(){
+        var post_id = $(this).attr('data-post-id');
+        alert(post_id);
+        $('#ratingForm').find('input[name=post_id]').val(post_id)
+        alert($('#ratingForm').find('input[name=post_id]').val());
+    });
+    $(function () {
+ 
+        $("#ratingOptions").rateYo({
+            normalFill: "#A0A0A0"
+        });
+
+    });
+
+    $(function(){
+
+         $("#ratingOptions").rateYo().on("rateyo.change",function(e,data){
+
+            var rating = data.rating;
+          
+            $(this).parent().find('input[name=rating]').val(rating);          
+
+         });
+
+    });
+</script>
 @endsection
