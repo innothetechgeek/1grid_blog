@@ -18,4 +18,10 @@ class Post extends Model
        return Rating::where('post_id',$post_id)->avg('rating');
 
     }
+
+    public function author(){
+
+        return $this->belongsTo(User::class,'user_id', 'id');
+
+    }
 }

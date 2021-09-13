@@ -271,9 +271,7 @@
   
     $('.rate-post').click(function(){
         var post_id = $(this).attr('data-post-id');
-        alert(post_id);
         $('#ratingForm').find('input[name=post_id]').val(post_id)
-        alert($('#ratingForm').find('input[name=post_id]').val());
     });
     $(function () {
  

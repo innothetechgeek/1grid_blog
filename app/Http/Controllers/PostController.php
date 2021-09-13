@@ -53,9 +53,7 @@ class PostController extends Controller
 
     public function getPost($id){
 
-        $post  = Post::where('id',$id)
-                ->get();
-
+        $post  = Post::find($id);
         return view('frontend/detail',['post'=>$post]);
 
     }

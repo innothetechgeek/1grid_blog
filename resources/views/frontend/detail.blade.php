@@ -41,19 +41,13 @@
 		<nav class="navbar navbar-expand-lg">
 			<div class="container-xl">
 				<!-- site logo -->
-				<a class="navbar-brand" href="index.html"><img src="{{ asset('assets/frontent/images/logo.svg') }}" alt="logo" /></a> 
+				<a class="navbar-brand" href="index.html"><img src="{{ asset('assets/frontend/images/logo.svg') }}" alt="logo" /></a> 
 
 				<div class="collapse navbar-collapse">
 					<!-- menus -->
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item dropdown active">
 							<a class="nav-link dropdown-toggle" href="index.html">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Inspiration</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#">Pages</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">Contact</a>
@@ -93,7 +87,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $post[0]->title }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
                 </ol>
             </nav>
 
@@ -104,23 +98,23 @@
                     <div class="post post-single">
 						<!-- post header -->
 						<div class="post-header">
-							<h1 class="title mt-0 mb-3">{{ $post[0]->content }}</h1>
+							<h1 class="title mt-0 mb-3">{{ $post->content }}</h1>
 							<ul class="meta list-inline mb-0">
-								<li class="list-inline-item"><a href="#"><img src="images/other/author-sm.png" class="author" alt="author"/>Katen Doe</a></li>
+								<li class="list-inline-item"><a href="#"><img height="20" width="20" src="https://i.pravatar.cc/150?img={{$post->id}}" class="author" alt="author"/>{{ $post->author->name }}</a></li>
 								<li class="list-inline-item">29 March 2021</li>
 							</ul>
 						</div>
 						<!-- featured image -->
 						<div class="featured-image">
-                             <?php $post_id = $post[0]->id;
-                                $image = $post[0]->image;
+                             <?php $post_id = $post->id;
+                                $image = $post->image;
                              ?>
 							  <img alt="Image placeholder" src='<?php echo asset("images/post_images/$post_id/$image")?>'>
 						</div>
 						<!-- post content -->
 						<div class="post-content clearfix">
 							{{
-                                $post[0]->content
+                                $post->content
                             }}
 							
 						</div>
@@ -415,27 +409,8 @@
 		<ul class="vertical-menu">
 			<li class="active">
 				<a href="index.html">Home</a>
-				<ul class="submenu">
-					<li><a href="index.html">Magazine</a></li>
-					<li><a href="personal.html">Personal</a></li>
-					<li><a href="personal-alt.html">Personal Alt</a></li>
-					<li><a href="minimal.html">Minimal</a></li>
-					<li><a href="classic.html">Classic</a></li>
-				</ul>
-			</li>
-			
-			<li><a href="category.html">Inspiration</a></li>
-			<li>
-				<a href="#">Pages</a>
-				<ul class="submenu">
-					<li><a href="category.html">Category</a></li>
-					<li><a href="blog-single.html">Blog Single</a></li>
-					<li><a href="blog-single-alt.html">Blog Single Alt</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</li>
-			<li><a href="contact.html">Contact</a></li>
+            </li>
+			<li><a href="#">Contact</a></li>
 		</ul>
 	</nav>
 
